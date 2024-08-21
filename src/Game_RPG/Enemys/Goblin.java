@@ -15,18 +15,25 @@ public class Goblin extends Enemy{
 
     @Override
     public void takeDamage(int damage) {
-        super.takeDamage(damage);
+        Goblin gang;
         System.out.println("Goblin take " + damage + " damage");
         if (random.nextInt(1,21)>15) {
-            gang();
+            gang = gang();// Зовет Гоблина а сам убегает прочь)
+
             System.out.println("Goblin calm gang");  // Гоблин зовёт помощника. Помощник реализован через костыль (типа он меняется местами со старым гоблином).
+        } else {
+            gang = this; // Если никто не пришел
         }
+        gang.takeDamage(damage);
     }
 
-    public void gang(){
-        super.setHealth(50);
+
+    public Goblin gang(){
+
+        return new Goblin(enemies);
 
     }
+
 
     public void attackHeroes(Hero hero) {
         if (super.isAlive() && hero.isAlive()) {
